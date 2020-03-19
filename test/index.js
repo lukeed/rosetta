@@ -83,3 +83,91 @@ test('usage', t => {
 
 	t.end();
 });
+
+
+test('functional', t => {
+	let ctx = rosetta({
+		en: {
+			hello(value) {
+				return `hello ${value || 'stranger'}~!`;
+			}
+		}
+	});
+
+	ctx.locale('en');
+
+	let foo = ctx.t('hello');
+	t.is(foo, 'hello stranger~!', '~> called function w/o param');
+
+	let bar = ctx.t('hello', 'world');
+	t.is(bar, 'hello world~!', '~> called function w/ param (string)');
+
+	let baz = ctx.t('hello', [1,2,3]);
+	t.is(baz, 'hello 1,2,3~!', '~> called function w/ param (array)');
+
+	t.end();
+});
+
+
+test('nested', t => {
+	let ctx = rosetta({
+		en: {
+			fruits: {
+				apple: 'apple',
+				orange: 'orange',
+				grape: 'grape',
+			}
+		},
+		es: {
+			fruits: {
+				apple: 'manzana',
+				orange: 'naranja',
+				grape: 'uva',
+			}
+		}
+	});
+
+	ctx.locale('en');
+	t.is(ctx.t('fruits.apple'), 'apple', '(en) fruits.apple');
+	t.is(ctx.t('fruits.orange'), 'orange', '(en) fruits.orange');
+	t.is(ctx.t(['fruits', 'grape']), 'grape', '(en) ["fruits","grape"]');
+	t.is(ctx.t('fruits.404'), undefined, '(en) fruits.404 ~> undefined');
+	t.is(ctx.t('error.404'), undefined, '(en) error.404 ~> undefined');
+
+	ctx.locale('es');
+	t.is(ctx.t('fruits.apple'), 'manzana', '(es) fruits.apple');
+	t.is(ctx.t('fruits.orange'), 'naranja', '(es) fruits.orange');
+	t.is(ctx.t(['fruits', 'grape']), 'uva', '(es) ["fruits","grape"]');
+	t.is(ctx.t('fruits.404'), undefined, '(es) fruits.404 ~> undefined');
+	t.is(ctx.t('error.404'), undefined, '(es) error.404 ~> undefined');
+
+	t.end();
+});
+
+
+test('arrays', t => {
+	let ctx = rosetta({
+		en: {
+			foo: '{{0}} + {{1}} = {{2}}',
+			bar: [{
+				baz: 'roses are {{colors.0}}, violets are {{colors.1}}'
+			}]
+		}
+	});
+
+	ctx.locale('en');
+
+	t.is(
+		ctx.t('foo', [1, 2, 3]),
+		'1 + 2 = 3',
+		'~> foo'
+	);
+
+	t.is(
+		ctx.t('bar.0.baz', { colors: ['red', 'blue'] }),
+		'roses are red, violets are blue',
+		'~> bar.0.baz'
+	);
+
+	t.end();
+});
