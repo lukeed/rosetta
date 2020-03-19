@@ -1,0 +1,36 @@
+{
+  "name": "rosetta",
+  "version": "0.0.0",
+  "repository": "lukeed/rosetta",
+  "description": "WIP",
+  "main": "dist/index.js",
+  "unpkg": "dist/index.min.js",
+  "module": "dist/index.mjs",
+  "types": "rosetta.d.ts",
+  "license": "MIT",
+  "files": [
+    "*.d.ts",
+    "dist"
+  ],
+  "author": {
+    "name": "Luke Edwards",
+    "email": "luke.edwards05@gmail.com",
+    "url": "https://lukeed.com"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "scripts": {
+    "build": "bundt",
+    "pretest": "npm run build",
+    "test": "tape -r esm test/*.js | tap-spec"
+  },
+  "keywords": [
+  ],
+  "devDependencies": {
+    "bundt": "1.0.0",
+    "esm": "3.2.25",
+    "tap-spec": "5.0.0",
+    "tape": "4.13.2"
+  }
+}
