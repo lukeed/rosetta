@@ -2,7 +2,7 @@
   "name": "rosetta",
   "version": "0.0.0",
   "repository": "lukeed/rosetta",
-  "description": "WIP",
+  "description": "A general purpose internationalization library in 289 bytes",
   "main": "dist/index.js",
   "unpkg": "dist/index.min.js",
   "module": "dist/index.mjs",
@@ -29,6 +29,8 @@
     "i18n",
     "locale",
     "localization",
+    "internationalization",
+    "translations",
     "translate"
   ],
   "dependencies": {
