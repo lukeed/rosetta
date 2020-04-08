@@ -49,7 +49,6 @@ const i18n = rosetta({
 		}
 	}
 });
-Math.floor(Math.random() * (11 - 9 + 1)) + 9
 
 // set default language
 i18n.locale('en');
@@ -57,7 +56,7 @@ i18n.locale('en');
 // add new language
 i18n.set('pt', {
 	intro: {
-		welcome: obj => `Benvind${obj.feminine ? 'a' : 'o'}, {{username}}!`,
+		welcome: obj => `Benvind${obj.feminine ? 'a' : 'o'}, ${obj.username}!`,
 		text: 'Espero que você ache isso útil.'
 	}
 });
@@ -80,19 +79,19 @@ const data = {
 
 // Retrieve translations
 // NOTE: Relies on "en" default
-i18n.t('welcome.intro', data); //=> 'Welcome, lukeed!'
-i18n.t('welcome.text', data); //=> 'I hope you find this useful.'
+i18n.t('intro.welcome', data); //=> 'Welcome, lukeed!'
+i18n.t('intro.text', data); //=> 'I hope you find this useful.'
 i18n.t('support', data); //=> 'For questions, I'm available on 4/8/2020, any time after 11:00.'
 
 // Retrieve translations w/ lang override
-i18n.t('welcome.intro', data, 'pt'); //=> 'Bem-venida, lukeed!'
+i18n.t('intro.welcome', data, 'pt'); //=> 'Benvindo, lukeed!'
 
 // Change default language key
 i18n.locale('pt');
 
 // Retrieve translations w/ new defaults
-i18n.t('welcome.text', data); //=> 'Espero que você ache isso útil.'
-i18n.t('welcome.text', data, 'en'); //=> 'I hope you find this useful.'
+i18n.t('intro.text', data); //=> 'Espero que você ache isso útil.'
+i18n.t('intro.text', data, 'en'); //=> 'I hope you find this useful.'
 ```
 
 
@@ -105,7 +104,7 @@ Initializes a new `Rosetta` instance.<br>You may optionally provide an initial t
 
 ### rosetta.locale(lang)
 
-Sets the language code for the `Rosetta` instance.<br>This will cause all [`rossetta.t()`]() lookups to assume this `lang` code.
+Sets the language code for the `Rosetta` instance.<br>This will cause all [`rossetta.t()`](#rosettatkey-params-lang) lookups to assume this `lang` code.
 
 #### lang
 Type: `String`
@@ -215,7 +214,7 @@ ctx.t('bye');
 
 ## Runtime Support
 
-The library makes use of [Object shorthand methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Method_definitions#Browser_compatibility) and [`Object.assign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Browser_compatibility). This yields the following support matrix:
+The library makes use of [Object shorthand methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Method_definitions#Browser_compatibility) and [`Object.assign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Browser_compatibility).<br>This yields the following support matrix:
 
 | Chrome | Safari | Firefox | Edge | IE | Node.js |
 |:---:|:--:|:---:|:---:|:---:|:----:|
