@@ -212,6 +212,87 @@ ctx.t('bye');
 //=> (en) 'Cya'
 ```
 
+## Debugging
+
+There is a "debug" mode included for **development** environments.
+
+The **only** difference with "debug" mode is that [`rossetta.t()`](#rosettatkey-params-lang) will log an error to the console when attempting to access a `key` that does not exist. Conversely, the main/default runtime will quietly return an an empty string for consistent output.
+
+Otherwise, the [API](#api) is _exactly_ the same as the main/default export!<br>This makes it easy to alias or swap the versions for development vs production bundles. Checkout the [Configuration](#configuration) section below for recipes.
+
+```js
+// debug mode
+import rosetta from 'rosetta/debug';
+
+const i18n = rosetta({
+  en: {
+    hello: 'hello'
+  }
+});
+
+i18n.locale('en');
+
+i18n.t('hello');
+//=> 'hello'
+
+i18n.t('foobar');
+// [rosetta] Missing the "foobar" key within the "en" dictionary
+//=> undefined
+```
+
+> **Note:** With the non-"debug" runtime, an empty string would be returned for the `foobar` key.
+
+#### Configuration
+
+Here are quick configuration recipes for Rollup and webpack that allow you to choose the right version of `rosetta` for your current environment _without changing you application code_.
+
+With both recipes, you will import `rosetta` like this:
+
+```js
+import rosetta from 'rosetta';
+```
+
+It is up to the bundler to change what `'rosetta'` resolves to...
+
+***Rollup***
+
+You will need to install [`@rollup/plugin-alias`](https://github.com/rollup/plugins/tree/master/packages/alias) before continuing.
+
+```js
+const isDev = /*custom logic*/ || !!process.env.ROLLUP_WATCH;
+
+export default {
+  // ...,
+  plugins: [
+    // ...
+    require('@rollup/plugin-alias')({
+      entries: {
+        rosetta: isDev ? 'rosetta/debug' : 'rosetta'
+      }
+    })
+  ]
+}
+```
+
+***webpack***
+
+The ability to add aliases within webpack comes by default.<br>One simply needs to add a [`resolve.alias`](https://webpack.js.org/configuration/resolve/#resolvealias) value depending on the environment:
+
+```js
+const isDev = /*specific to your config*/;
+
+module.exports = {
+  //...,
+  resolve: {
+    alias: {
+      // ...,
+      rosetta: isDev ? 'rosetta/debug' : 'rosetta'
+    }
+  }
+}
+```
+
+
 ## Runtime Support
 
 The library makes use of [Object shorthand methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Method_definitions#Browser_compatibility) and [`Object.assign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Browser_compatibility).<br>This yields the following support matrix:

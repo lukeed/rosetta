@@ -33,6 +33,10 @@
     "translations",
     "translate"
   ],
+  "modes": {
+    "default": "src/index.js",
+    "debug": "src/debug.js"
+  },
   "dependencies": {
     "dlv": "^1.1.3",
     "templite": "^1.1.0"
