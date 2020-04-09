@@ -36,18 +36,18 @@ $ npm install --save rosetta
 import rosetta from 'rosetta';
 
 const i18n = rosetta({
-	en: {
-		intro: {
-			welcome: 'Welcome, {{username}}!',
-			text: 'I hope you find this useful.',
-		},
-		support(obj) {
-			let hour = Math.floor(Math.random() * 3) + 9;
-			let str = `For questions, I'm available on ${obj.date.toLocaleDateString()}`;
-			str += `, any time after ${hour}:00.`
-			return str;
-		}
-	}
+  en: {
+    intro: {
+      welcome: 'Welcome, {{username}}!',
+      text: 'I hope you find this useful.',
+    },
+    support(obj) {
+      let hour = Math.floor(Math.random() * 3) + 9;
+      let str = `For questions, I'm available on ${obj.date.toLocaleDateString()}`;
+      str += `, any time after ${hour}:00.`
+      return str;
+    }
+  }
 });
 
 // set default language
@@ -55,26 +55,26 @@ i18n.locale('en');
 
 // add new language
 i18n.set('pt', {
-	intro: {
-		welcome: obj => `Benvind${obj.feminine ? 'a' : 'o'}, ${obj.username}!`,
-		text: 'Espero que você ache isso útil.'
-	}
+  intro: {
+    welcome: obj => `Benvind${obj.feminine ? 'a' : 'o'}, ${obj.username}!`,
+    text: 'Espero que você ache isso útil.'
+  }
 });
 
 // append extra key(s) to existing language
 i18n.set('pt', {
-	support(obj) {
-		let hour = Math.floor(Math.random() * 3) + 9;
-		let str = `Se tiver perguntas, estou disponível em ${obj.date.toLocaleDateString()}`;
-		str += `, qualquer hora depois às ${hour}:00.`
-		return str;
-	}
+  support(obj) {
+    let hour = Math.floor(Math.random() * 3) + 9;
+    let str = `Se tiver perguntas, estou disponível em ${obj.date.toLocaleDateString()}`;
+    str += `, qualquer hora depois às ${hour}:00.`
+    return str;
+  }
 });
 
 const data = {
-	feminine: false,
-	username: 'lukeed',
-	date: new Date()
+  feminine: false,
+  username: 'lukeed',
+  date: new Date()
 };
 
 // Retrieve translations
@@ -128,9 +128,11 @@ A new record of key-values to merge into the `lang`'s dictionary.
 
 
 ### rosetta.t(key, params?, lang?)
-Returns: `String` or `undefined`
+Returns: `String`
 
 Retrieve the value for a given `key`.
+
+> **Important:** In the normal/default mode, an empty string will be returned for unknown keys.<br>Conversely, in ["debug" mode](#debugging), an error message will be printed and `undefined` value will be returned for unknown keys.
 
 #### key
 Type: `String` or `Array<String|Number>`
@@ -146,11 +148,11 @@ A `key` can access nested properties via:
 
 ```js
 const ctx = rosetta({
-	en: {
-		fruits: {
-			apple: 'apple',
-		}
-	}
+  en: {
+    fruits: {
+      apple: 'apple',
+    }
+  }
 });
 
 ctx.locale('en');
@@ -169,17 +171,17 @@ The data object argument to pass your dictionary keys' string templates and/or f
 
 ```js
 const ctx = rosetta({
-	es: {
-		hello: '¡Hola {{name}}!'
-	},
-	en: {
-		hello(obj) {
-			return obj.name === 'lukeed' ? 'wazzzuppp' : `Hello, ${obj.name}!`;
-		},
-	},
-	pt: {
-		hello: 'Oi {{person}}, tudo bem?' // <-- key is wrong
-	},
+  es: {
+    hello: '¡Hola {{name}}!'
+  },
+  en: {
+    hello(obj) {
+      return obj.name === 'lukeed' ? 'wazzzuppp' : `Hello, ${obj.name}!`;
+    },
+  },
+  pt: {
+    hello: 'Oi {{person}}, tudo bem?' // <-- key is wrong
+  },
 });
 
 const user1 = { name: 'lukeed' };

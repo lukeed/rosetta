@@ -14,7 +14,7 @@ export default function (obj) {
 		},
 
 		t(key, params, lang) {
-			var val = dlv(tree[lang || locale], key);
+			var val = dlv(tree[lang || locale], key, '');
 			if (typeof val === 'function') return val(params);
 			if (typeof val === 'string') return tmpl(val, params);
 			return val;

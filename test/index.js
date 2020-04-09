@@ -22,7 +22,7 @@ test('usage', t => {
 	});
 
 	let foo = ctx.t('hello');
-	t.is(foo, undefined, '~> undefined w/o locale');
+	t.is(foo, "", '~> "" w/o locale');
 
 	t.is(
 		ctx.locale('en'), undefined,
@@ -30,18 +30,18 @@ test('usage', t => {
 	);
 
 	let bar = ctx.t('hello');
-	t.not(bar, undefined, '(en) found "hello" key');
+	t.not(bar, "", '(en) found "hello" key');
 	t.is(bar, 'Hello, !', '~> interpolations empty if missing param');
 
 	let baz = ctx.t('hello', { name: 'world' });
 	t.is(baz, 'Hello, world!', '~> interpolations successful');
 
 	let bat = ctx.t('hello', { name: 'world' }, 'es');
-	t.not(bat, undefined, '(es) found "hello" key');
+	t.not(bat, "", '(es) found "hello" key');
 	t.is(bat, 'Hola world!', '~> success');
 
 	t.is(
-		ctx.t('hello', { name: 'world' }, 'pt'), undefined,
+		ctx.t('hello', { name: 'world' }, 'pt'), "",
 		'(pt) did NOT find "hello" key'
 	);
 
@@ -51,11 +51,11 @@ test('usage', t => {
 	);
 
 	let quz = ctx.t('hello', { name: 'world' }, 'pt');
-	t.not(quz, undefined, '(pt) found "hello" key');
+	t.not(quz, '', '(pt) found "hello" key');
 	t.is(quz, 'Oí world!', '~> success');
 
 	let qut = ctx.t('foo', { name: 'bar' }, 'pt');
-	t.not(qut, undefined, '(pt) found "foo" key');
+	t.not(qut, '', '(pt) found "foo" key');
 	t.is(qut, 'foo bar~!', '~> success');
 
 	t.is(
@@ -64,11 +64,11 @@ test('usage', t => {
 	);
 
 	let qux = ctx.t('hello', { name: 'default' });
-	t.not(qux, undefined, '(es) found "hello" key');
+	t.not(qux, '', '(es) found "hello" key');
 	t.is(qux, 'Hola default!', '~> success');
 
 	t.is(
-		ctx.t('hello', { name: 'world' }, 'de'), undefined,
+		ctx.t('hello', { name: 'world' }, 'de'), '',
 		'(de) did NOT find "hello" key'
 	);
 
@@ -78,7 +78,7 @@ test('usage', t => {
 	);
 
 	let qar = ctx.t('hello', { name: 'world' }, 'de');
-	t.not(qar, undefined, '(de) found "hello" key');
+	t.not(qar, '', '(de) found "hello" key');
 	t.is(qar, 'Hallo world!', '~> success');
 
 	t.end();
@@ -131,15 +131,15 @@ test('nested', t => {
 	t.is(ctx.t('fruits.apple'), 'apple', '(en) fruits.apple');
 	t.is(ctx.t('fruits.orange'), 'orange', '(en) fruits.orange');
 	t.is(ctx.t(['fruits', 'grape']), 'grape', '(en) ["fruits","grape"]');
-	t.is(ctx.t('fruits.404'), undefined, '(en) fruits.404 ~> undefined');
-	t.is(ctx.t('error.404'), undefined, '(en) error.404 ~> undefined');
+	t.is(ctx.t('fruits.404'), "", '(en) fruits.404 ~> ""');
+	t.is(ctx.t('error.404'), "", '(en) error.404 ~> ""');
 
 	ctx.locale('es');
 	t.is(ctx.t('fruits.apple'), 'manzana', '(es) fruits.apple');
 	t.is(ctx.t('fruits.orange'), 'naranja', '(es) fruits.orange');
 	t.is(ctx.t(['fruits', 'grape']), 'uva', '(es) ["fruits","grape"]');
-	t.is(ctx.t('fruits.404'), undefined, '(es) fruits.404 ~> undefined');
-	t.is(ctx.t('error.404'), undefined, '(es) error.404 ~> undefined');
+	t.is(ctx.t('fruits.404'), "", '(es) fruits.404 ~> ""');
+	t.is(ctx.t('error.404'), "", '(es) error.404 ~> ""');
 
 	t.end();
 });
