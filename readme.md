@@ -3,8 +3,8 @@
 </div>
 
 <div align="center">
-  <a href="https://npmjs.org/package/rosetta123">
-    <img src="https://badgen.now.sh/npm/v/rosetta123" alt="version" />
+  <a href="https://npmjs.org/package/rosetta">
+    <img src="https://badgen.now.sh/npm/v/rosetta" alt="version" />
   </a>
   <a href="https://github.com/lukeed/rosetta/actions">
     <img src="https://badgen.net/github/status/lukeed/rosetta" alt="status" />
@@ -14,7 +14,7 @@
   </a>
 </div>
 
-<div align="center">A general purpose internationalization library in 289 bytes!</div>
+<div align="center">A general purpose internationalization library in 292 bytes!</div>
 
 ## Features
 
