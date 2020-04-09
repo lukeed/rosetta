@@ -126,13 +126,38 @@ Type: `Object`
 
 A new record of key-values to merge into the `lang`'s dictionary.
 
+Each key within the `table` can correspond to a function or a string template.
+
+When using a function, it will receive the entire data input (see [`params`](#params)).<br>You are required to ensure the function returns a (string) value of your liking.
+
+When using a string template, anything within double curly brackets (`{{ example }}`) will be interpreted as a key path and interpolated via [`templite`](https://github.com/lukeed/templite). The key path can use dot-notation to access nested values from the data input (see [`params`](#params)). Additionally, if a key path did not resolve to a value, an empty string is injected.
+
+```js
+const ctx = rosetta({
+  en: {
+    foo: (obj) => `function sees "${obj.value || '~DEFAULT~'}"`,
+    bar: 'template sees "{{value}}"'
+  }
+});
+
+ctx.t('foo', {}, 'en');
+//=> 'function sees "~DEFAULT~"
+ctx.t('foo', { value: 123 }, 'en');
+//=> 'function sees "123"
+
+ctx.t('bar', {}, 'en');
+//=> 'template sees ""
+ctx.t('bar', { value: 123 }, 'en');
+//=> 'template sees "123"
+```
+
 
 ### rosetta.t(key, params?, lang?)
 Returns: `String`
 
 Retrieve the value for a given `key`.
 
-> **Important:** In the normal/default mode, an empty string will be returned for unknown keys.<br>Conversely, in ["debug" mode](#debugging), an error message will be printed and `undefined` value will be returned for unknown keys.
+> **Important:** In the normal/default mode, an empty string will be returned for unknown keys.<br>Conversely, in ["debug" mode](#debugging), an error message will be printed and `undefined` will be returned for unknown keys.
 
 #### key
 Type: `String` or `Array<String|Number>`
