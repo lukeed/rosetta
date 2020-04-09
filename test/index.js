@@ -171,3 +171,19 @@ test('arrays', t => {
 
 	t.end();
 });
+
+
+test('invalid value', t => {
+	let ctx = rosetta({
+		en: {
+			foo: ['bar'],
+		}
+	});
+
+	t.same(
+		ctx.t('foo', null, 'en'),
+		['bar']
+	);
+
+	t.end();
+});
