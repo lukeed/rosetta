@@ -10,6 +10,7 @@
   "license": "MIT",
   "files": [
     "*.d.ts",
+    "debug",
     "dist"
   ],
   "author": {
