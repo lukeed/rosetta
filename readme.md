@@ -330,9 +330,13 @@ The library makes use of [Object shorthand methods](https://developer.mozilla.or
 
 If you need to support older platforms, simply attach `rosetta` to your project's Babel (or similar) configuration.
 
+## Examples
+
+* [**Using Next.js**](https://github.com/zeit/next.js/tree/canary/examples/with-i18n-rosetta) &mdash; Thank you [@SharpTech](https://github.com/StarpTech)<br>_Official Next.js example using React Hooks and Context to provide SSR, SSG, CSR compatible i18n solutions._
+
 ## Credits
 
-Thank you [7sempra](https://github.com/7sempra) for gifting the `rosetta` name on npm.
+Thank you [@7sempra](https://github.com/7sempra) for gifting the `rosetta` name on npm.
 
 ## License
 
