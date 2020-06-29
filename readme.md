@@ -155,6 +155,20 @@ ctx.t('bar', { value: 123 }, 'en');
 //=> 'template sees "123"
 ```
 
+### rosetta.table(lang)
+Returns: `Object` or `undefined`
+
+Retrieve the the `lang`'s full dictionary/table of translation keys.
+
+If the language does not exist (aka, no translations have been provided for it), you'll receive `undefined`.<br>Otherwise, you'll receive the full object as it exists within the `Rosetta` instance. See [`table`](#table).
+
+> **Important:** Manipulating this object is any way will mutate and affect your `Rosetta` instance. Be careful!
+
+#### lang
+Type: `String`
+
+The language code's table to retrieve.
+
 
 ### rosetta.t(key, params?, lang?)
 Returns: `String`

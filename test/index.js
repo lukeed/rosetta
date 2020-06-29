@@ -20,6 +20,16 @@ test('usage', () => {
 		pt: { foo: 'foo {{name}}~!' },
 	});
 
+	assert.equal(
+		ctx.table('en'),
+		{ hello: 'Hello, {{name}}!' }
+	);
+
+	assert.is(
+		ctx.table('foobar'),
+		undefined
+	);
+
 	let foo = ctx.t('hello');
 	assert.is(foo, "", '~> "" w/o locale');
 

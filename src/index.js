@@ -13,6 +13,10 @@ export default function (obj) {
 			return (locale = lang || locale);
 		},
 
+		table(lang) {
+			return tree[lang];
+		},
+
 		t(key, params, lang) {
 			var val = dlv(tree[lang || locale], key, '');
 			if (typeof val === 'function') return val(params);

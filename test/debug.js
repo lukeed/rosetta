@@ -26,6 +26,16 @@ test('(debug) usage', () => {
 		pt: { foo: 'foo {{name}}~!' },
 	});
 
+	assert.equal(
+		ctx.table('en'),
+		{ hello: 'Hello, {{name}}!' }
+	);
+
+	assert.is(
+		ctx.table('foobar'),
+		undefined
+	);
+
 	let foo = ctx.t('hello');
 	assert.is(foo, undefined, '~> undefined w/o locale');
 	assert.is(_message, `[rosetta] Missing the "hello" key within the "" dictionary`, '~> prints error message');
