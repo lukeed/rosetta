@@ -14,7 +14,7 @@
   </a>
 </div>
 
-<div align="center">A general purpose internationalization library in 292 bytes!</div>
+<div align="center">A general purpose internationalization library in 298 bytes!</div>
 
 ## Features
 
