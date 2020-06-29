@@ -1,6 +1,6 @@
 export interface Rosetta<T> {
-	/** Set the language key */
-	locale(lang: string): void;
+	/** Get/Set the language key */
+	locale(lang?: string): string;
 	/** Define or extend the language table */
 	set(lang: string, table: T): void;
 	/** Retrieve a translation segment for the current language */

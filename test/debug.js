@@ -31,9 +31,11 @@ test('(debug) usage', () => {
 	assert.is(_message, `[rosetta] Missing the "hello" key within the "" dictionary`, '~> prints error message');
 
 	assert.is(
-		ctx.locale('en'), undefined,
+		ctx.locale('en'), 'en',
 		'>>> ctx.locale()'
 	);
+
+	assert.is(ctx.locale(), 'en');
 
 	let bar = ctx.t('hello');
 	assert.is.not(bar, undefined, '(en) found "hello" key');
@@ -72,9 +74,15 @@ test('(debug) usage', () => {
 	assert.is(qut, 'foo bar~!', '~> success');
 
 	assert.is(
-		ctx.locale('es'), undefined,
+		ctx.locale('es'), 'es',
 		'>>> ctx.locale()'
 	);
+
+	assert.is(ctx.locale(), 'es');
+	assert.is(ctx.locale(''), 'es');
+	assert.is(ctx.locale(false), 'es');
+	assert.is(ctx.locale(null), 'es');
+	assert.is(ctx.locale(0), 'es');
 
 	let qux = ctx.t('hello', { name: 'default' });
 	assert.is.not(qux, undefined, '(es) found "hello" key');

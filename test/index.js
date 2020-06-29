@@ -24,9 +24,11 @@ test('usage', () => {
 	assert.is(foo, "", '~> "" w/o locale');
 
 	assert.is(
-		ctx.locale('en'), undefined,
+		ctx.locale('en'), 'en',
 		'>>> ctx.locale()'
 	);
+
+	assert.is(ctx.locale(), 'en');
 
 	let bar = ctx.t('hello');
 	assert.is.not(bar, "", '(en) found "hello" key');
@@ -58,9 +60,15 @@ test('usage', () => {
 	assert.is(qut, 'foo bar~!', '~> success');
 
 	assert.is(
-		ctx.locale('es'), undefined,
+		ctx.locale('es'), 'es',
 		'>>> ctx.locale()'
 	);
+
+	assert.is(ctx.locale(), 'es');
+	assert.is(ctx.locale(''), 'es');
+	assert.is(ctx.locale(false), 'es');
+	assert.is(ctx.locale(null), 'es');
+	assert.is(ctx.locale(0), 'es');
 
 	let qux = ctx.t('hello', { name: 'default' });
 	assert.is.not(qux, '', '(es) found "hello" key');

@@ -102,15 +102,19 @@ Returns: `Rosetta`
 
 Initializes a new `Rosetta` instance.<br>You may optionally provide an initial translation object.
 
-### rosetta.locale(lang)
+### rosetta.locale(lang?)
+Returns: `String`
 
 Sets the language code for the `Rosetta` instance.<br>This will cause all [`rossetta.t()`](#rosettatkey-params-lang) lookups to assume this `lang` code.
 
+The function will return the currently active `lang` code. This means that a setting a new value will reply with the same value. Additionally, calling `locale()` without any argument will return the `lang` code that the `Rosetta` instance was last given.
+
 #### lang
-Type: `String`
+Type: `String`<br>
+Required: `false`
 
-The language code to choose.
-
+The language code to choose.<br>
+If `locale()` is called without an argument (or with a falsey value), then the current `lang` code is returned.
 
 ### rosetta.set(lang, table)
 

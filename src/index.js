@@ -10,7 +10,7 @@ export default function (obj) {
 		},
 
 		locale(lang) {
-			locale = lang;
+			return (locale = lang || locale);
 		},
 
 		t(key, params, lang) {
