@@ -1,6 +1,6 @@
 {
   "name": "rosetta",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "repository": "lukeed/rosetta",
   "description": "A general purpose internationalization library in 298 bytes",
   "main": "dist/index.js",
