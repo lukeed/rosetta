@@ -7,7 +7,7 @@
     <img src="https://badgen.now.sh/npm/v/rosetta" alt="version" />
   </a>
   <a href="https://github.com/lukeed/rosetta/actions">
-    <img src="https://badgen.net/github/status/lukeed/rosetta" alt="status" />
+    <img src="https://github.com/lukeed/rosetta/workflows/CI/badge.svg" alt="CI" />
   </a>
   <a href="https://codecov.io/gh/lukeed/rosetta">
     <img src="https://badgen.net/codecov/c/github/lukeed/rosetta" alt="codecov" />
