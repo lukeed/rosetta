@@ -1,20 +1,19 @@
-import test from 'tape';
+import { test } from 'uvu';
+import * as assert from 'uvu/assert';
 import rosetta from '../src/debug';
 
-test('(debug) exports', t => {
-	t.is(typeof rosetta, 'function', 'exports a function');
+test('(debug) exports', () => {
+	assert.type(rosetta, 'function', 'exports a function');
 
 	let out = rosetta();
-	t.is(typeof out, 'object', 'returns an object');
-	t.is(typeof out.t, 'function', '~> has "t" function');
-	t.is(typeof out.set, 'function', '~> has "set" function');
-	t.is(typeof out.locale, 'function', '~> has "locale" function');
-
-	t.end();
+	assert.type(out, 'object', 'returns an object');
+	assert.type(out.t, 'function', '~> has "t" function');
+	assert.type(out.set, 'function', '~> has "set" function');
+	assert.type(out.locale, 'function', '~> has "locale" function');
 });
 
 
-test('(debug) usage', t => {
+test('(debug) usage', () => {
 	let _message = '';
 	let _error = console.error;
 	console.error = str => {
@@ -28,88 +27,85 @@ test('(debug) usage', t => {
 	});
 
 	let foo = ctx.t('hello');
-	t.is(foo, undefined, '~> undefined w/o locale');
-	t.is(_message, `[rosetta] Missing the "hello" key within the "" dictionary`, '~> prints error message');
+	assert.is(foo, undefined, '~> undefined w/o locale');
+	assert.is(_message, `[rosetta] Missing the "hello" key within the "" dictionary`, '~> prints error message');
 
-	t.is(
+	assert.is(
 		ctx.locale('en'), undefined,
 		'>>> ctx.locale()'
 	);
 
 	let bar = ctx.t('hello');
-	t.not(bar, undefined, '(en) found "hello" key');
-	t.is(bar, 'Hello, !', '~> interpolations empty if missing param');
+	assert.is.not(bar, undefined, '(en) found "hello" key');
+	assert.is(bar, 'Hello, !', '~> interpolations empty if missing param');
 
 	let baz = ctx.t('hello', { name: 'world' });
-	t.is(baz, 'Hello, world!', '~> interpolations successful');
+	assert.is(baz, 'Hello, world!', '~> interpolations successful');
 
 	let bat = ctx.t('hello', { name: 'world' }, 'es');
-	t.not(bat, undefined, '(es) found "hello" key');
-	t.is(bat, 'Hola world!', '~> success');
+	assert.is.not(bat, undefined, '(es) found "hello" key');
+	assert.is(bat, 'Hola world!', '~> success');
 
-	t.is(
+	assert.is(
 		ctx.t('hello', { name: 'world' }, 'pt'), undefined,
 		'(pt) did NOT find "hello" key'
 	);
 
-	t.is(
+	assert.is(
 		_message,
 		`[rosetta] Missing the "hello" key within the "pt" dictionary`,
 		'~> prints error message'
 	);
 
 
-	t.is(
+	assert.is(
 		ctx.set('pt', { hello: 'Oí {{name}}!' }), undefined,
 		'>>> ctx.set()'
 	);
 
 	let quz = ctx.t('hello', { name: 'world' }, 'pt');
-	t.not(quz, undefined, '(pt) found "hello" key');
-	t.is(quz, 'Oí world!', '~> success');
+	assert.is.not(quz, undefined, '(pt) found "hello" key');
+	assert.is(quz, 'Oí world!', '~> success');
 
 	let qut = ctx.t('foo', { name: 'bar' }, 'pt');
-	t.not(qut, undefined, '(pt) found "foo" key');
-	t.is(qut, 'foo bar~!', '~> success');
+	assert.is.not(qut, undefined, '(pt) found "foo" key');
+	assert.is(qut, 'foo bar~!', '~> success');
 
-	t.is(
+	assert.is(
 		ctx.locale('es'), undefined,
 		'>>> ctx.locale()'
 	);
 
 	let qux = ctx.t('hello', { name: 'default' });
-	t.not(qux, undefined, '(es) found "hello" key');
-	t.is(qux, 'Hola default!', '~> success');
+	assert.is.not(qux, undefined, '(es) found "hello" key');
+	assert.is(qux, 'Hola default!', '~> success');
 
-	t.is(
+	assert.is(
 		ctx.t('hello', { name: 'world' }, 'de'), undefined,
 		'(de) did NOT find "hello" key'
 	);
 
-	t.is(
+	assert.is(
 		_message,
 		`[rosetta] Missing the "hello" key within the "de" dictionary`,
 		'~> prints error message'
 	);
 
-
-	t.is(
+	assert.is(
 		ctx.set('de', { hello: 'Hallo {{name}}!' }), undefined,
 		'>>> ctx.set(de)'
 	);
 
 	let qar = ctx.t('hello', { name: 'world' }, 'de');
-	t.not(qar, undefined, '(de) found "hello" key');
-	t.is(qar, 'Hallo world!', '~> success');
+	assert.is.not(qar, undefined, '(de) found "hello" key');
+	assert.is(qar, 'Hallo world!', '~> success');
 
 	// restore
 	console.error = _error;
-
-	t.end();
 });
 
 
-test('(debug) functional', t => {
+test('(debug) functional', () => {
 	let ctx = rosetta({
 		en: {
 			hello(value) {
@@ -121,19 +117,17 @@ test('(debug) functional', t => {
 	ctx.locale('en');
 
 	let foo = ctx.t('hello');
-	t.is(foo, 'hello stranger~!', '~> called function w/o param');
+	assert.is(foo, 'hello stranger~!', '~> called function w/o param');
 
 	let bar = ctx.t('hello', 'world');
-	t.is(bar, 'hello world~!', '~> called function w/ param (string)');
+	assert.is(bar, 'hello world~!', '~> called function w/ param (string)');
 
 	let baz = ctx.t('hello', [1,2,3]);
-	t.is(baz, 'hello 1,2,3~!', '~> called function w/ param (array)');
-
-	t.end();
+	assert.is(baz, 'hello 1,2,3~!', '~> called function w/ param (array)');
 });
 
 
-test('(debug) nested', t => {
+test('(debug) nested', () => {
 	let _message = '';
 	let _error = console.error;
 	console.error = str => {
@@ -158,43 +152,41 @@ test('(debug) nested', t => {
 	});
 
 	ctx.locale('en');
-	t.is(ctx.t('fruits.apple'), 'apple', '(en) fruits.apple');
-	t.is(ctx.t('fruits.orange'), 'orange', '(en) fruits.orange');
-	t.is(ctx.t(['fruits', 'grape']), 'grape', '(en) ["fruits","grape"]');
+	assert.is(ctx.t('fruits.apple'), 'apple', '(en) fruits.apple');
+	assert.is(ctx.t('fruits.orange'), 'orange', '(en) fruits.orange');
+	assert.is(ctx.t(['fruits', 'grape']), 'grape', '(en) ["fruits","grape"]');
 
-	t.is(ctx.t('fruits.404'), undefined, '(en) fruits.404 ~> undefined');
-	t.is(_message, `[rosetta] Missing the "fruits.404" key within the "en" dictionary`, '~> prints error message');
+	assert.is(ctx.t('fruits.404'), undefined, '(en) fruits.404 ~> undefined');
+	assert.is(_message, `[rosetta] Missing the "fruits.404" key within the "en" dictionary`, '~> prints error message');
 
-	t.is(ctx.t('error.404'), undefined, '(en) error.404 ~> undefined');
-	t.is(_message, `[rosetta] Missing the "error.404" key within the "en" dictionary`, '~> prints error message');
+	assert.is(ctx.t('error.404'), undefined, '(en) error.404 ~> undefined');
+	assert.is(_message, `[rosetta] Missing the "error.404" key within the "en" dictionary`, '~> prints error message');
 
-	t.is(ctx.t(['fruits', 'mango']), undefined, '(en) error.404 ~> undefined');
-	t.is(_message, `[rosetta] Missing the "fruits.mango" key within the "en" dictionary`, '~> prints error message');
+	assert.is(ctx.t(['fruits', 'mango']), undefined, '(en) error.404 ~> undefined');
+	assert.is(_message, `[rosetta] Missing the "fruits.mango" key within the "en" dictionary`, '~> prints error message');
 
 	// ---
 
 	ctx.locale('es');
-	t.is(ctx.t('fruits.apple'), 'manzana', '(es) fruits.apple');
-	t.is(ctx.t('fruits.orange'), 'naranja', '(es) fruits.orange');
-	t.is(ctx.t(['fruits', 'grape']), 'uva', '(es) ["fruits","grape"]');
+	assert.is(ctx.t('fruits.apple'), 'manzana', '(es) fruits.apple');
+	assert.is(ctx.t('fruits.orange'), 'naranja', '(es) fruits.orange');
+	assert.is(ctx.t(['fruits', 'grape']), 'uva', '(es) ["fruits","grape"]');
 
-	t.is(ctx.t('fruits.404'), undefined, '(es) fruits.404 ~> undefined');
-	t.is(_message, `[rosetta] Missing the "fruits.404" key within the "es" dictionary`, '~> prints error message');
+	assert.is(ctx.t('fruits.404'), undefined, '(es) fruits.404 ~> undefined');
+	assert.is(_message, `[rosetta] Missing the "fruits.404" key within the "es" dictionary`, '~> prints error message');
 
-	t.is(ctx.t('error.404'), undefined, '(es) error.404 ~> undefined');
-	t.is(_message, `[rosetta] Missing the "error.404" key within the "es" dictionary`, '~> prints error message');
+	assert.is(ctx.t('error.404'), undefined, '(es) error.404 ~> undefined');
+	assert.is(_message, `[rosetta] Missing the "error.404" key within the "es" dictionary`, '~> prints error message');
 
-	t.is(ctx.t(['fruits', 'mango']), undefined, '(es) error.404 ~> undefined');
-	t.is(_message, `[rosetta] Missing the "fruits.mango" key within the "es" dictionary`, '~> prints error message');
+	assert.is(ctx.t(['fruits', 'mango']), undefined, '(es) error.404 ~> undefined');
+	assert.is(_message, `[rosetta] Missing the "fruits.mango" key within the "es" dictionary`, '~> prints error message');
 
 	// restore
 	console.error = _error;
-
-	t.end();
 });
 
 
-test('(debug) arrays', t => {
+test('(debug) arrays', () => {
 	let ctx = rosetta({
 		en: {
 			foo: '{{0}} + {{1}} = {{2}}',
@@ -206,33 +198,32 @@ test('(debug) arrays', t => {
 
 	ctx.locale('en');
 
-	t.is(
+	assert.is(
 		ctx.t('foo', [1, 2, 3]),
 		'1 + 2 = 3',
 		'~> foo'
 	);
 
-	t.is(
+	assert.is(
 		ctx.t('bar.0.baz', { colors: ['red', 'blue'] }),
 		'roses are red, violets are blue',
 		'~> bar.0.baz'
 	);
-
-	t.end();
 });
 
 
-test('invalid value', t => {
+test('invalid value', () => {
 	let ctx = rosetta({
 		en: {
 			foo: ['bar'],
 		}
 	});
 
-	t.same(
+	assert.equal(
 		ctx.t('foo', null, 'en'),
 		['bar']
 	);
-
-	t.end();
 });
+
+
+test.run();

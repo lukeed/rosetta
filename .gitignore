@@ -1,6 +1,8 @@
-node_modules
 .DS_Store
+node_modules
+*-lock.*
 *.lock
 *.log
+
 /dist
 /debug

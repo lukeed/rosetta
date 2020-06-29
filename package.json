@@ -24,7 +24,7 @@
   "scripts": {
     "build": "bundt",
     "pretest": "npm run build",
-    "test": "tape -r esm test/*.js | tap-spec"
+    "test": "uvu -r esm test"
   },
   "keywords": [
     "i18n",
@@ -45,7 +45,6 @@
   "devDependencies": {
     "bundt": "1.0.0",
     "esm": "3.2.25",
-    "tap-spec": "5.0.0",
-    "tape": "4.13.2"
+    "uvu": "0.0.17"
   }
 }
