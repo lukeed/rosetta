@@ -43,7 +43,7 @@
     "templite": "^1.1.0"
   },
   "devDependencies": {
-    "bundt": "1.0.0",
+    "bundt": "1.0.2",
     "esm": "3.2.25",
     "uvu": "0.0.17"
   }
