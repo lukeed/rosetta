@@ -184,7 +184,7 @@ The identifier to retrieve.
 
 A `key` can access nested properties via:
 
-* a string that with dot notation &mdash; `'foo.bar[1].baz'`
+* a string that with dot notation &mdash; `'foo.bar.1.baz'`
 * an array of individual key segments &mdash; `['foo', 'bar', 1, 'baz']`
 
 > **Important:** You are expected to know & traverse your own dictionary structure correctly.
