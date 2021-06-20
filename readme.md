@@ -350,7 +350,8 @@ If you need to support older platforms, simply attach `rosetta` to your project'
 
 ## Examples
 
-* [**Using Next.js**](https://github.com/zeit/next.js/tree/canary/examples/with-i18n-rosetta) &mdash; Thank you [@SharpTech](https://github.com/StarpTech)<br>_Official Next.js example using React Hooks and Context to provide SSR, SSG, CSR compatible i18n solutions._
+* [**Using Next.js**](https://github.com/zeit/next.js/tree/canary/examples/with-i18n-rosetta) &mdash; Thank you [@StarpTech](https://github.com/StarpTech)<br>_Official Next.js example using React Hooks and Context to provide SSR, SSG, CSR compatible i18n solutions._
+* [**Localization solution for Next.js**](https://github.com/StarpTech/next-localization) &mdash; <br>_Lightweight Internationalization (i18n) library for Next.js 10+_
 
 ## Credits
 
