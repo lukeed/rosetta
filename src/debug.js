@@ -2,7 +2,7 @@ import dlv from 'dlv';
 import tmpl from 'templite';
 
 export default function (obj) {
-	let locale='', tree = obj || {};
+	let locale='', tree = obj || {}, pluralRulesFormatters = {};
 
 	return {
 		set(lang, table) {
@@ -15,6 +15,10 @@ export default function (obj) {
 
 		table(lang) {
 			return tree[lang];
+		},
+
+		pluralRulesFormatter(lang) {
+			return pluralRulesFormatters[lang] = pluralRulesFormatters[lang] || new Intl.PluralRules('en');
 		},
 
 		t(key, params, lang) {
@@ -41,7 +45,7 @@ export default function (obj) {
 				} else if (count === 1 && val.hasOwnProperty('one')) {
 					pluralRuleToUse = 'one';
 				} else {
-					pluralRuleToUse = pluralRulesFormatters[lang || locale].select(count);
+					pluralRuleToUse = this.pluralRulesFormatter([lang || locale]).select(count);
 				}
 
 				if (!val.hasOwnProperty(pluralRuleToUse)) {

@@ -10,15 +10,15 @@ export default function (obj) {
 		},
 
 		locale(lang) {
-			if (lang) {
-				pluralRulesFormatters[lang] = pluralRulesFormatters[lang] || new Intl.PluralRules('en');
-			}
-
 			return (locale = lang || locale);
 		},
 
 		table(lang) {
 			return tree[lang];
+		},
+
+		pluralRulesFormatter(lang) {
+			return pluralRulesFormatters[lang] = pluralRulesFormatters[lang] || new Intl.PluralRules('en');
 		},
 
 		t(key, params, lang) {
@@ -41,7 +41,7 @@ export default function (obj) {
 				} else if (count === 1 && val.hasOwnProperty('one')) {
 					pluralRuleToUse = 'one';
 				} else {
-					pluralRuleToUse = pluralRulesFormatters[lang || locale].select(count);
+					pluralRuleToUse = this.pluralRulesFormatter([lang || locale]).select(count);
 				}
 
 				if (val.hasOwnProperty(pluralRuleToUse)) {
