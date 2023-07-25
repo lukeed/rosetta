@@ -33,8 +33,8 @@ export default function (obj) {
 			}
 
 			if (typeof val === 'object' && key.endsWith('_count') && params.hasOwnProperty('count')) {
-				const count = params.count;
-				let pluralRuleToUse = '';
+				let count = params.count,
+					pluralRuleToUse = '';
 
 				if (count === 0 && val.hasOwnProperty('zero')) {
 					pluralRuleToUse = 'zero';

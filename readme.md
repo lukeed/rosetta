@@ -14,14 +14,14 @@
   </a>
 </div>
 
-<div align="center">A general purpose internationalization library in 352 bytes!</div>
+<div align="center">A general purpose internationalization library in 348 bytes!</div>
 
 ## Features
 
 * Simple and Familiar API
 * Unobstrusive and Unopinionated
 * Supports pluralization
-* 352 bytes – including dependencies!
+* Less than 350 bytes – including dependencies!
 
 
 ## Install
