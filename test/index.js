@@ -181,6 +181,34 @@ test('arrays', () => {
 	);
 });
 
+test('plural_rules', () => {
+	let ctx = rosetta({
+		en: {
+			results_count: {
+				zero: "{{count}} results",
+				one: "{{count}} result",
+				other: "{{count}} results"
+			},
+
+			results_with_terms_count: {
+				one: "{{count}} result for {{terms}}",
+				other: "{{count}} results for {{terms}}"
+			}
+		}
+	});
+
+	ctx.locale('en');
+
+	assert.is(
+		ctx.t('results_count', {count: 1}),
+		'1 result'
+	);
+
+	assert.is(
+		ctx.t('results_with_terms_count', {count: 5, terms: 'bar'}),
+		'5 results for bar'
+	);
+});
 
 test('invalid value', () => {
 	let ctx = rosetta({
