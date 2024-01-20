@@ -9,6 +9,12 @@
   <a href="https://github.com/lukeed/rosetta/actions">
     <img src="https://github.com/lukeed/rosetta/workflows/CI/badge.svg" alt="CI" />
   </a>
+	<a href="https://licenses.dev/npm/rosetta">
+		<img src="https://licenses.dev/b/npm/rosetta" alt="licenses" />
+	</a>
+	<a href="https://npmjs.org/package/rosetta">
+    <img src="https://badgen.now.sh/npm/dm/rosetta" alt="downloads" />
+  </a>
   <a href="https://codecov.io/gh/lukeed/rosetta">
     <img src="https://badgen.net/codecov/c/github/lukeed/rosetta" alt="codecov" />
   </a>
