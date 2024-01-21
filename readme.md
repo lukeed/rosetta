@@ -20,13 +20,14 @@
   </a>
 </div>
 
-<div align="center">A general purpose internationalization library in 298 bytes!</div>
+<div align="center">A general purpose internationalization library in 348 bytes!</div>
 
 ## Features
 
 * Simple and Familiar API
 * Unobstrusive and Unopinionated
-* Less than 300 bytes – including dependencies!
+* Supports pluralization
+* Less than 350 bytes – including dependencies!
 
 
 ## Install
@@ -46,6 +47,11 @@ const i18n = rosetta({
     intro: {
       welcome: 'Welcome, {{username}}!',
       text: 'I hope you find this useful.',
+      results_count: {
+        zero: '{{count}} results',
+        one: '{{count}} result',
+        other: '{{count}} results'
+      }
     },
     support(obj) {
       let hour = Math.floor(Math.random() * 3) + 9;
@@ -88,6 +94,10 @@ const data = {
 i18n.t('intro.welcome', data); //=> 'Welcome, lukeed!'
 i18n.t('intro.text', data); //=> 'I hope you find this useful.'
 i18n.t('support', data); //=> 'For questions, I'm available on 4/8/2020, any time after 11:00.'
+
+// Use plural rules for key ending by _count
+i18n.t('intro.results_count', {count: 0}); //=> 0 results
+i18n.t('intro.results_count', {count: 1}); //=> 1 result
 
 // Retrieve translations w/ lang override
 i18n.t('intro.welcome', data, 'pt'); //=> 'Benvindo, lukeed!'
@@ -353,6 +363,12 @@ The library makes use of [Object shorthand methods](https://developer.mozilla.or
 | 45+ | 9+ | 34+ | 12+ | :x: | 4.0+ |
 
 If you need to support older platforms, simply attach `rosetta` to your project's Babel (or similar) configuration.
+
+If you are using the plural rules features, you need a browser with `Intl.PluralRules` support:
+
+| Chrome | Safari | Firefox | Edge | IE | Node.js |
+|:------:|:------:|:-------:|:----:|:---:|:----:|
+|  63+   |  13+   |   58+   | 79+  | :x: | 4.0+ |
 
 ## Examples
 
